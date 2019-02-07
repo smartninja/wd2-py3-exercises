@@ -41,3 +41,12 @@ fr_num = chinook.execute("""
                             WHERE Customer.Country = 'France';
                             """)
 print(fr_num[0][0])
+
+print("--------ALTERNATIVE (pretty print)--------")
+
+# pretty_print() does the same as execute(), except that it also prints the data in a nice table in the terminal
+chinook.pretty_print("""
+                    SELECT COUNT(*)
+                    FROM Customer
+                    WHERE Customer.Country = 'France';
+                    """)
