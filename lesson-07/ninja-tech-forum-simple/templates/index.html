@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Main | Ninja Tech Forum</title>
+
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+
+    <body>
+        <p><a href="/">Home</a> | <a href="/signup">Signup</a> | <a href="/login">Login</a></p>
+
+        {% if user %}
+		    <h1>Welcome to Ninja Tech Forum, {{user.username}}!</h1>
+        {% else %}
+            <h1>Welcome to Ninja Tech Forum, stranger!</h1>
+        {% endif %}
+    </body>
+</html>
