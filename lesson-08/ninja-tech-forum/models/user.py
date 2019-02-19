@@ -1,5 +1,7 @@
 import os
 import uuid
+
+from smartninja_mongo.bson import ObjectId
 from smartninja_mongo.connection import MongoClient
 from smartninja_mongo.odm import Model
 
@@ -36,6 +38,6 @@ class User(Model):
 
     def set_new_session_token(self):
         self.session_token = str(uuid.uuid4())
-        collection.update_one({"_id": self._id}, {"$set": {"session_token": self.session_token}})
+        collection.update_one({"_id": ObjectId(self._id)}, {"$set": {"session_token": self.session_token}})
 
         return True

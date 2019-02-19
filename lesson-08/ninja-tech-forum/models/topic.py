@@ -2,6 +2,7 @@ import datetime
 import os
 from smartninja_mongo.connection import MongoClient
 from smartninja_mongo.odm import Model
+from smartninja_mongo.bson import ObjectId
 
 client = MongoClient(os.getenv("MONGODB_URI", "localhost"))  # Find MONGODB_URI env var (Heroku). If not found, use "localhost"
 db = client.my_database  # change the database name when you deploy on Heroku
@@ -46,7 +47,7 @@ class Topic(Model):
 
     @classmethod
     def get_by_id(cls, topic_id):
-        topic_dict = collection.find_one({"_id": topic_id})
+        topic_dict = collection.find_one({"_id": ObjectId(topic_id)})
 
         # convert topic dictionary into topic object
         topic_obj = cls.convert_dict_to_object(data_dict=topic_dict)
@@ -55,6 +56,6 @@ class Topic(Model):
 
     @classmethod
     def edit_topic(cls, topic_id, updates_dict):
-        result = collection.update_one({"_id": topic_id}, {"$set": updates_dict})
+        result = collection.update_one({"_id": ObjectId(topic_id)}, {"$set": updates_dict})
 
         return result
