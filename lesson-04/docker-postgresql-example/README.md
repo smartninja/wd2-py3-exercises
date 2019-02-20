@@ -7,3 +7,9 @@
 5. Now you can run `python main.py`. You can also do changes in the file.
 6. When you want to finish, type `exit` in the shell.
 7. Finally, type `docker-compose down` to shut down the containers.
+
+You can also open a PostgreSQL Admin page on [http://localhost:8080](http://localhost:8080).
+
+### Troubleshooting
+
+You'll might need to do `pip install -r requirements.txt` manually in the Docker shell.
