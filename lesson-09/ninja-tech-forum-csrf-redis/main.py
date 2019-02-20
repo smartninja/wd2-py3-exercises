@@ -102,7 +102,7 @@ def topic_create():
     # POST method
     elif request.method == "POST":
         csrf = request.form.get("csrf")  # csrf from HTML
-        redis_csrf = redis.get(name=user.username)  # csrf from Redis
+        redis_csrf = redis.get(name=user.username).decode()  # csrf from Redis (needs to be decoded from byte string)
 
         # if they match, allow user to create a topic
         if csrf and csrf == redis_csrf:
