@@ -1,4 +1,4 @@
-# Docker environment with Python 3 and PostgreSQL
+# Docker environment with Python 3 and MongoDB
 
 1. Download ZIP of this repository.
 2. Make sure Docker is running on your computer.
@@ -8,4 +8,4 @@
 6. When you want to finish, type `exit` in the shell.
 7. Finally, type `docker-compose down` to shut down the containers.
 
-You can also open a PostgreSQL Admin page on [http://localhost:8080](http://localhost:8080).
+You can also open a MongoDB Admin page on [http://localhost:8081](http://localhost:8081).

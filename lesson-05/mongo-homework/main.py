@@ -14,6 +14,9 @@ user_id_1 = collection.insert_one({"first_name": "Matt", "last_name": "Ramuta", 
 user_id_2 = collection.insert_one({"first_name": "Alina", "last_name": "Toppler", "year_born": 1991}).inserted_id
 user_id_3 = collection.insert_one({"first_name": "Bob", "last_name": "Marley", "year_born": 1945}).inserted_id
 
+print(user_id_1)
+print(type(user_id_1))  # user ids are not a string, but an ObjectId
+
 many_users = collection.find()
 
 print("Unsorted users:")

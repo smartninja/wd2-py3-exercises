@@ -1,8 +1,7 @@
-from smartninja_mongo.connection import MongoClient
-from smartninja_mongo.bson import ObjectId
+from pymongo import MongoClient
+from bson import ObjectId
 
-# connect client
-client = MongoClient(host="localhost")
+client = MongoClient(host="mongo", username="root", password="example")
 
 # create a database (or find an existing one)
 db = client.my_first_database
@@ -24,8 +23,8 @@ print(user_info)
 # find a document (using user_id_str as a string)
 print("Using ID as string")
 user_id_str = str(user_id)
-user_info_2 = collection.find_one({"_id": user_id_str})  # in the real MongoDB database, the result would be None (here is not)
-print(user_info_2)
+user_info_2 = collection.find_one({"_id": user_id_str})  # result is None
+print(user_info_2)  # None, because id string needs to be an ObjectId
 
 # user_id_str string needs to be converted to ObjectId
 print("converting ID string to ObjectId")

@@ -1,0 +1,40 @@
+version: '3.1'
+
+networks:
+    mongonet:
+
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - mongonet
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+    - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    networks:
+      - mongonet
+
+  app:
+    build: .
+    hostname: app
+    container_name: app
+    volumes:
+      - ./app:/app
+    command: "pip install -r requirements.txt"
+    depends_on:
+      - mongo
+    networks:
+      - mongonet
