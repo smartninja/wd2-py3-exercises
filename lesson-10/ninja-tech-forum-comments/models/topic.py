@@ -1,10 +1,10 @@
 import datetime
 from smartninja_mongo.odm import Model
 from smartninja_mongo.bson import ObjectId
-from models.database import get_db
+from models.database import mongo_db
 
 
-collection = get_db().topics
+collection = mongo_db.topics
 
 
 class Topic(Model):

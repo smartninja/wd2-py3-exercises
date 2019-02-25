@@ -1,13 +1,10 @@
-import os
 import uuid
-
-import smartninja_redis
 
 from flask import render_template, request, redirect, url_for, Blueprint
 from models.user import User
 from models.topic import Topic
-
-redis = smartninja_redis.from_url(os.environ.get("REDIS_URL"))
+from models.database import redis
+from models.comment import Comment
 
 topic_handlers = Blueprint("topic", __name__)
 
@@ -67,7 +64,14 @@ def topic_details(topic_id):
     session_token = request.cookies.get("session_token")
     user = User.get_by_session_token(session_token=session_token)
 
-    return render_template("topic/topic_details.html", topic=topic, user=user)
+    # csrf
+    csrf_token = str(uuid.uuid4())  # create CSRF token
+    redis.set(name=user.username, value=csrf_token)  # store CSRF token into Redis for that specific user
+
+    # get comments
+    comments = Comment.get_comments(topic_id=topic_id)
+
+    return render_template("topic/topic_details.html", topic=topic, user=user, csrf_token=csrf_token, comments=comments)
 
 
 @topic_handlers.route("/topic/<topic_id>/edit", methods=["GET", "POST"])

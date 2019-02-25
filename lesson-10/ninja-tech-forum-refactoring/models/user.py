@@ -3,10 +3,10 @@ import uuid
 from smartninja_mongo.bson import ObjectId
 from smartninja_mongo.odm import Model
 
-from models.database import get_db
+from models.database import mongo_db
 
 
-collection = get_db().users
+collection = mongo_db.users
 
 
 class User(Model):

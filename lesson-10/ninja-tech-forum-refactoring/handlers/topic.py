@@ -1,13 +1,9 @@
-import os
 import uuid
-
-import smartninja_redis
 
 from flask import render_template, request, redirect, url_for, Blueprint
 from models.user import User
 from models.topic import Topic
-
-redis = smartninja_redis.from_url(os.environ.get("REDIS_URL"))
+from models.database import redis
 
 topic_handlers = Blueprint("topic", __name__)
 
