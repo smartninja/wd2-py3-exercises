@@ -1,10 +1,8 @@
-import uuid
-
 from flask import render_template, request, redirect, url_for, Blueprint
 from models.user import User
 from models.topic import Topic
-from models.database import redis
 from models.comment import Comment
+from utils.csrf_helper import set_csrf_token, get_csrf_token
 
 topic_handlers = Blueprint("topic", __name__)
 
@@ -33,14 +31,13 @@ def topic_create():
 
     # GET method
     if request.method == "GET":
-        csrf_token = str(uuid.uuid4())  # create CSRF token
-        redis.set(name=user.username, value=csrf_token)  # store CSRF token into Redis for that specific user
+        csrf_token = set_csrf_token(username=user.username)
         return render_template("topic/topic_create.html", user=user, csrf_token=csrf_token)  # send CSRF token into HTML template
 
     # POST method
     elif request.method == "POST":
         csrf = request.form.get("csrf")  # csrf from HTML
-        redis_csrf = redis.get(name=user.username).decode()  # csrf from Redis (needs to be decoded from byte string)
+        redis_csrf = get_csrf_token(username=user.username)
 
         # if they match, allow user to create a topic
         if csrf and csrf == redis_csrf:
@@ -66,8 +63,7 @@ def topic_details(topic_id):
 
     csrf_token = None
     if user:
-        csrf_token = str(uuid.uuid4())  # create CSRF token
-        redis.set(name=user.username, value=csrf_token)  # store CSRF token into Redis for that specific user
+        csrf_token = set_csrf_token(username=user.username)
 
     # get comments
     comments = Comment.get_comments(topic_id=topic_id)

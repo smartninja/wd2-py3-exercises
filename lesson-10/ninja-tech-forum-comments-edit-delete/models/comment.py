@@ -24,6 +24,15 @@ class Comment(Model):
         return comment_id
 
     @classmethod
+    def get_by_id(cls, comment_id):
+        comment_dict = collection.find_one({"_id": ObjectId(comment_id)})
+
+        # convert topic dictionary into topic object
+        comment_obj = cls.convert_dict_to_object(data_dict=comment_dict)
+
+        return comment_obj
+
+    @classmethod
     def get_comments(cls, topic_id):
         comment_dicts = collection.find({"topic_id": topic_id})  # we don't use ObjectId() because we didn't save topic_id like this
 
@@ -35,3 +44,15 @@ class Comment(Model):
         """
 
         return comment_dicts
+
+    @classmethod
+    def edit_comment(cls, comment_id, updates_dict):
+        result = collection.update_one({"_id": ObjectId(comment_id)}, {"$set": updates_dict})
+
+        return result
+
+    @classmethod
+    def delete_comment(cls, comment_id):
+        result = collection.delete_one({"_id": ObjectId(comment_id)})
+
+        return result
