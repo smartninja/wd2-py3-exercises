@@ -1,11 +1,7 @@
 import pytest
 from main import app
-from tinydb import TinyDB
-from models.database import client as mongo_client
+from models.database import mongo_db
 from utils.csrf_helper import get_csrf_token
-
-db_name = "heroku_dt0wvt4m"
-mongo_db = mongo_client[db_name]
 
 
 @pytest.fixture
@@ -34,8 +30,7 @@ def client_logged_in():
 
 def cleanup():
     # clean up the DB
-    db = TinyDB('./localhost/{}.json'.format(db_name))
-    db.purge_tables()
+    mongo_db.tinydb.purge_tables()
 
 
 def test_index_not_logged_in(client):
