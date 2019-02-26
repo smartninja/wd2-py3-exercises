@@ -3,3 +3,4 @@
 *.sqlite
 localhost.db/
 localhost/
+.pytest_cache
