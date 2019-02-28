@@ -15,6 +15,8 @@ def comment_create(topic_id):
     # only logged in users can create a comment
     if not user:
         return redirect(url_for('auth.login'))
+    elif not user.verified:
+        return "Please verify your email address first!"
 
     csrf = request.form.get("csrf")  # csrf from HTML
     redis_csrf = get_csrf_token(username=user.username)

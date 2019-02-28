@@ -28,6 +28,8 @@ def topic_create():
     # only logged in users can create a topic
     if not user:
         return redirect(url_for('auth.login'))
+    elif not user.verified:
+        return "Please verify your email address first!"
 
     # GET method
     if request.method == "GET":

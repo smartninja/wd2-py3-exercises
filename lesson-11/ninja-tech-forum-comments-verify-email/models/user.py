@@ -26,7 +26,7 @@ class User(Model):
         # send email verification message
         subject = "Please verify your email address"
         domain = "https://ninja-tech-forum.herokuapp.com"  # TODO: enter your own Heroku domain here!
-        message = "Hi! Please click on <a href='{0}/verify-email/{1}'>this link</a> to verify your email address.".format(domain, self.verification_token)
+        message = "Hi! Please click on this link to verify your email address: {0}/verify-email/{1}".format(domain, self.verification_token)
         send_email_to_one_recipient(recipient_email=self.email_address, subject=subject, message=message)
 
         return True
@@ -42,6 +42,16 @@ class User(Model):
         user_dict = collection.find_one({"session_token": session_token})
         user_obj = cls.convert_dict_to_object(data_dict=user_dict)
         return user_obj
+
+    @classmethod
+    def email_verification(cls, verification_token):
+        user_dict = collection.find_one({"verification_token": verification_token})
+
+        if user_dict:
+            collection.update_one({"_id": user_dict["_id"]}, {"$set": {"verified": True}})
+            return True
+        else:
+            return False
 
     def set_new_session_token(self):
         self.session_token = str(uuid.uuid4())

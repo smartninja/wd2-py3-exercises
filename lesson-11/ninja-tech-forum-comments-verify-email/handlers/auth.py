@@ -67,3 +67,9 @@ def signup():
         response.set_cookie("session_token", user.session_token)
 
         return response
+
+
+@auth_handlers.route("/verify-email/<token>", methods=["GET"])
+def verify_email(token):
+    result = User.email_verification(verification_token=token)
+    return render_template("auth/email_verification_result.html", verified=result)
