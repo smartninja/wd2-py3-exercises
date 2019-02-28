@@ -1,12 +1,10 @@
 import datetime
-import json
-import os
-import requests
 from smartninja_mongo.odm import Model
 from smartninja_mongo.bson import ObjectId
 from models.database import mongo_db
 from models.user import User
 from models.topic import Topic
+from utils.email_helper import send_email_to_one_recipient
 
 
 collection = mongo_db.comments
@@ -26,39 +24,14 @@ class Comment(Model):
         comment_id = collection.insert_one(self.__dict__).inserted_id
         self._id = comment_id  # save id from MongoDB into the Topic object
 
-        # SENDGRID
-        sender_email = os.getenv("MY_SENDER_EMAIL")
-        api_key = os.getenv('SENDGRID_API_KEY')
+        # get topic and topic author
         topic = Topic.get_by_id(topic_id=self.topic_id)
-        author = User.get_by_username(username=topic.author_username)
+        topic_author = User.get_by_username(username=topic.author_username)
 
-        if sender_email and api_key and author.email_address:
-            url = "https://api.sendgrid.com/v3/mail/send"
-
-            data = {"personalizations": [{
-                        "to": [{"email": author.email_address}],
-                        "subject": "New comment!"
-                    }],
-
-                    "from": {"email": sender_email},
-
-                    "content": [{
-                        "type": "text/plain",
-                        "value": "A new comment was posted in your topic {}".format(topic.title)
-                    }]
-            }
-
-            headers = {
-                'authorization': "Bearer {0}".format(api_key),
-                'content-type': "application/json"
-            }
-
-            response = requests.request("POST", url=url, data=json.dumps(data), headers=headers)
-
-            print("Sent to SendGrid")
-            print(response.text)
-        else:
-            print("No env vars or no email address")
+        # send message data
+        message = "A new comment was posted in your topic {}.".format(topic.title)
+        subject = "New comment!"
+        send_email_to_one_recipient(recipient_email=topic_author.email_address, subject=subject, message=message)
 
         return comment_id
 
