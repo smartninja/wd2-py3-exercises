@@ -28,6 +28,6 @@ def comment_create(topic_id):
         comment = Comment(topic_id=topic_id, text=text, author_id=user._id, author_username=user.username)
         comment.insert()
 
-        return redirect(url_for('topic.topic_details', topic_id=topic_id))
+        return redirect(url_for('topic.topic_details', topic_id=topic_id, csrf_token=set_csrf_token(username=user.username)))
     else:
         return "CSRF token is not valid!"

@@ -48,14 +48,12 @@ class Comment(Model):
     def get_comments(cls, topic_id):
         comment_dicts = collection.find({"topic_id": topic_id})  # we don't use ObjectId() because we didn't save topic_id like this
 
-        """
         # Uncomment this if you want to convert dicts into objects
         comments = []
         for comm_dict in comment_dicts:
             comments.append(cls.convert_dict_to_object(data_dict=comm_dict))
-        """
 
-        return comment_dicts
+        return comments
 
     @classmethod
     def edit_comment(cls, comment_id, updates_dict):

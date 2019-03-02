@@ -1,3 +1,5 @@
+import os
+
 from flask import render_template, request, redirect, url_for, Blueprint
 from models.user import User
 from models.topic import Topic
@@ -62,6 +64,12 @@ def topic_details(topic_id):
     # get current user
     session_token = request.cookies.get("session_token")
     user = User.get_by_session_token(session_token=session_token)
+
+    # START test background tasks TODO: delete this code
+    if os.getenv('REDIS_URL'):
+        from tasks import get_random_num
+        get_random_num()
+    # END test background tasks
 
     csrf_token = None
     if user:

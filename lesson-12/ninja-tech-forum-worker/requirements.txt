@@ -4,3 +4,4 @@ smartninja-mongo
 smartninja-redis
 sendgrid
 requests
+huey
