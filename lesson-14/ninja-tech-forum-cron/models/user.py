@@ -58,3 +58,13 @@ class User(Model):
         collection.update_one({"_id": ObjectId(self._id)}, {"$set": {"session_token": self.session_token}})
 
         return True
+
+    @classmethod
+    def get_all_users(cls):
+        user_dicts = collection.find()
+
+        user_objects = []
+        for user_dict in user_dicts:
+            user_objects.append(cls.convert_dict_to_object(data_dict=user_dict))
+
+        return user_objects

@@ -44,6 +44,17 @@ class Topic(Model):
         return topics
 
     @classmethod
+    def get_topics_date_range(cls, gt, lt):
+        topic_dicts = collection.find()
+
+        topic_objects = []
+        for topic_dict in topic_dicts:
+            if gt < topic_dict["created"] < lt:
+                topic_objects.append(cls.convert_dict_to_object(data_dict=topic_dict))
+
+        return topic_objects
+
+    @classmethod
     def get_by_id(cls, topic_id):
         topic_dict = collection.find_one({"_id": ObjectId(topic_id)})
 

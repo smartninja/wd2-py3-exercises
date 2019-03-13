@@ -1,5 +1,3 @@
-import os
-
 from flask import render_template, request, redirect, url_for, Blueprint
 from models.user import User
 from models.topic import Topic
