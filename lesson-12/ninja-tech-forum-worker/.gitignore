@@ -1,5 +1,0 @@
-localhost/
-*.json
-.pytest_cache
-*.db
-test.db/
