@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Traffic light</title>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1 id="hello" class="ninja">Traffic light</h1>
+
+        <div class="square" id="topLight" onmouseover="redLight()" onmouseout="blackLight()"></div>
+        <div class="square" id="middleLight" onmouseover="yellowLight()" onmouseout="blackLight()"></div>
+        <div class="square" id="bottomLight" onmouseover="greenLight()" onmouseout="blackLight()"></div>
+
+        <!-- JavaScript files (must be at the end of body!) -->
+        <script src="script.js"></script>
+    </body>
+</html>
