@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lottery</title>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1 id="hello">Lottery numbers generator</h1>
+
+        <p>
+            How many lottery numbers would you like generated?
+            <input id="amount" type="number" value="8" class="big">
+        </p>
+
+        <p>
+            Choose the range in which the numbers should be generated (0 is not allowed): <br>
+            From <input id="rangeLow" type="number" value="1" class="big">
+            to <input id="rangeHigh" type="number" value="30" class="big">
+        </p>
+
+        <button id="resultButton" class="big">Generate numbers!</button>
+
+        <p id="resultText" class="big"></p>
+
+        <!-- JavaScript files (must be at the end of body!) -->
+        <script src="script.js"></script>
+    </body>
+</html>

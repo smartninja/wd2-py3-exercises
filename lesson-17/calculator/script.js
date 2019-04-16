@@ -17,10 +17,6 @@
         } else if (selectOperation.value == "/") {
             resultText.textContent = firstNum / secondNum;
         }
-
-        console.log(firstNum.value);
-        console.log(selectOperation.value);
-        console.log(secondNum.value);
     });
 
 }())
