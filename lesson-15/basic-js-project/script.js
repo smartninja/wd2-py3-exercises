@@ -24,8 +24,12 @@ console.log(nothing);
 let someArray = [1, 5, 67, "hey", 245, true];  // array (like list in Python)
 console.log(someArray);
 
-let someObject = {"name": "Matt", "age": 22, "admin": false};
+let someObject = {name: "Matt", age: 22, admin: false};  // JS object
 console.log(someObject.name);
+
+// you can also write it like you would a dictionary in Python, but it's still an object in JavaScript
+let someDict = {"name": "Matt", "age": 22, "admin": false};
+console.log(someDict.name);
 
 // if/else
 let mood = "happy";
