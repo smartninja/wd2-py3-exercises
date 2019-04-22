@@ -3,7 +3,7 @@
     let resultButton = document.getElementById("resultButton");
 
     resultButton.addEventListener("click", function() {
-    
+
         // get values from the input fields and convert them into integers
         let amount = parseInt(document.getElementById("amount").value);
         let rangeLow = parseInt(document.getElementById("rangeLow").value);
