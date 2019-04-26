@@ -12,13 +12,20 @@ def index():
 
 @bitt_handlers.route("/get-all-bitts", methods=["GET"])
 def bitts_get_all():
-    # get all bitts from db
-    bitts = Bitt.get_all_bitts()
+    # check if browser sent a last bitt id as URL parameter
+    browser_last_bitt_id = request.args.get("lastid", default="Nothing", type=str)
 
-    if not bitts:
-        print("No bitts yet")
+    # if browser last Bitt id is the same as backend last Bitt ID, don't make a DB query
+    if browser_last_bitt_id == Bitt.get_last_bitt_id():
+        return dumps({"success": True, "synced": True})
+    else:
+        # get all bitts from db
+        bitts = Bitt.get_all_bitts()
 
-    return dumps(bitts)
+        if not bitts:
+            print("No bitts yet")
+
+        return dumps(bitts)
 
 
 @bitt_handlers.route("/create-bitt", methods=["POST"])

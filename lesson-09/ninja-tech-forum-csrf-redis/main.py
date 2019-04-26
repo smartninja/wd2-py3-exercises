@@ -14,6 +14,7 @@ redis = smartninja_redis.from_url(os.environ.get("REDIS_URL"))
 app = Flask(__name__)
 
 
+
 @app.route("/")
 def index():
     # check if user is authenticated based on session_token
@@ -48,7 +49,7 @@ def login():
 
                 # save user's session token into a cookie
                 response = make_response(redirect(url_for('index')))
-                response.set_cookie("session_token", user.session_token)
+                response.set_cookie("session_token", user.session_token, httponly=True, samesite='Strict')
 
                 return response
             else:
@@ -78,7 +79,7 @@ def signup():
 
         # save user's session token into a cookie
         response = make_response(redirect(url_for('index')))
-        response.set_cookie("session_token", user.session_token)
+        response.set_cookie("session_token", user.session_token, httponly=True, samesite='Strict')
 
         return response
 
