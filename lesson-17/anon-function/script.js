@@ -1,3 +1,4 @@
+// Anon function tied to an event
 let blueButton = document.getElementById("blueButton");
 
 blueButton.addEventListener("click", function() { // Anonymous function tied to an event
@@ -11,3 +12,9 @@ let sumNumbers = function(x, y) {
 }
 
 sumNumbers(3, 4);
+
+// Arrow function (same example as above)
+
+let sumNumbersArrow = (x, y) => console.log(x + y);
+
+sumNumbersArrow(8, 10);
