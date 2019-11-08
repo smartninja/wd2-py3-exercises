@@ -5,3 +5,4 @@ smartninja-redis
 pytest
 sqla-wrapper
 firebase-admin
+Flask-cors

@@ -4,3 +4,4 @@ psycopg2
 smartninja-redis
 pytest
 sqla-wrapper
+Flask-cors
