@@ -35,7 +35,7 @@ def login():
 
                 # save user's session token into a cookie
                 response = make_response(redirect(url_for('topic.index')))
-                response.set_cookie("session_token", user.session_token, httponly=True, samesite='Strict')
+                response.set_cookie("session_token", user.session_token)  # you might want to set httponly=True on production
 
                 return response
             else:
@@ -62,6 +62,6 @@ def signup():
 
         # save user's session token into a cookie
         response = make_response(redirect(url_for('topic.index')))
-        response.set_cookie("session_token", user.session_token, httponly=True, samesite='Strict')
+        response.set_cookie("session_token", user.session_token)  # you might want to set httponly=True on production
 
         return response
