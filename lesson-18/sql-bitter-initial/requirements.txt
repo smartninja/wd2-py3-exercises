@@ -3,5 +3,5 @@ gunicorn==19.9.0
 psycopg2
 smartninja-redis
 pytest
-sqla-wrapper==3.0.0
+sqla-wrapper==4.200628
 Flask-cors

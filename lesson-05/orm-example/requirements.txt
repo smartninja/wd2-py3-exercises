@@ -1,1 +1,1 @@
-sqla-wrapper==3.0.0
+sqla-wrapper==4.200628
